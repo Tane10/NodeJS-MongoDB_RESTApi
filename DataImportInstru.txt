@@ -1,0 +1,3 @@
+To import items data in your mongoDB database.
+Make sure MongoDB is running ('mogod in bash shell') then
+run 'mongo DBname < file.js from commandline.
