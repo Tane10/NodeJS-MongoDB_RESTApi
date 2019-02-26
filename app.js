@@ -6,11 +6,15 @@ const app = express();
 const db = mongoose.connect("mongodb://localhost/itemsAPI");
 const itemsRouter = express.Router();
 const port = process.env.PORT || 3000;
-const Items = require('./models/itemsModel')
+const Items = require("./models/itemModel");
 
 itemsRouter.route("/items").get((req, res) => {
-  const response = { hello: "this is it api" };
-  res.json(response);
+  Items.find((err, items) => {
+    if (err) {
+      return res.send(err);
+    }
+    return res.json(items);
+  });
 });
 
 app.use("/api", itemsRouter);
