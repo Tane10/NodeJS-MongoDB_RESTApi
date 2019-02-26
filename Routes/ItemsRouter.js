@@ -82,7 +82,15 @@ function routes(Items) {
           }
           return res.json(items);
       });
-    });
+    })
+    .delete((req,res) => {
+        req.items.remove((err) => {
+            if (err){
+                return res.send(err);
+            }
+            return res.sendStatus(204);
+        })
+    })
   return itemsRouter;
 }
 
