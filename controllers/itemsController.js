@@ -2,8 +2,14 @@ function itemsController(Items) {
   function post(req, res) {
     const items = new Items(req.body);
 
+    if(!req.body.itemName){
+        res.status(400);
+        return res.send('Items name is required')
+    }
+
     items.save();
-    return res.status(201).json(items);
+    res.status(201);
+    return res.json(items);
   }
 
   function get(req, res) {
