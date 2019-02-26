@@ -64,7 +64,6 @@ function routes(Items) {
       return res.json(items);
     })
 
-    //FIXME: PATCH NOT WORKING
     .patch((req, res) => {
       const { items } = req;
       // if user sends id trhen delete id 
@@ -72,9 +71,9 @@ function routes(Items) {
           delete req.body._id;
       }
       // Loop through the json request and only update what user sends
-      Object.defineProperties(req.body).forEach(item => {
-        const key = item[0];
-        const value = item[1];
+      Object.entries(req.body).forEach(itm => {
+        const key = itm[0];
+        const value = itm[1];
         items[key] = value;
       });
       req.items.save((err) => {
