@@ -1,6 +1,12 @@
 const express = require("express");
 const itemsController = require('../controllers/itemsController');
 
+//TODO: Add a filter by item name
+//TODO: Add a filter by item Quailty
+//TODO: Add HATEOAS to all routes to make it eaiser for my self
+
+
+
 function routes(Items) {
   const itemsRouter = express.Router();
   const controller = itemsController(Items);
@@ -29,7 +35,13 @@ function routes(Items) {
   });
   itemsRouter.route("/items/:itemId")
     //find idem by id
-    .get((req, res) => {res.json(req.items);
+    .get((req, res) => {
+      const returnItem = req.items.toJSON();
+      
+      returnItem.links = {};
+      returnItem.links.FilterByItemId = `http://${req.headers.host}/api/items/?itemId=${req.items._id}`
+      
+      res.json(returnItem);
     })
 
     // Update a item by using its id

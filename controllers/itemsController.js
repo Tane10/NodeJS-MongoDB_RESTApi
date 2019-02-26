@@ -2,9 +2,9 @@ function itemsController(Items) {
   function post(req, res) {
     const items = new Items(req.body);
 
-    if(!req.body.itemName){
-        res.status(400);
-        return res.send('Items name is required')
+    if (!req.body.itemName) {
+      res.status(400);
+      return res.send("Items name is required");
     }
 
     items.save();
@@ -22,10 +22,19 @@ function itemsController(Items) {
       if (err) {
         return res.send(err);
       }
-      return res.json(items);
+      //hatoes self documentation
+      const returnItems = items.map((items) => {
+        const newItems = items.toJSON();
+        newItems.links = {};
+        newItems.links.self = `http://${req.headers.host}/api/items/${
+          items._id
+        }`;
+        return newItems;
+      });
+      return res.json(returnItems);
     });
   }
-  return {post,get};
+  return { post, get };
 }
 
 module.exports = itemsController;

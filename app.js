@@ -10,7 +10,7 @@ if (process.env.ENV == "Tests") {
   const db = mongoose.connect("mongodb://localhost/itemsAPI_Tests");
 } else {
   console.log("This is not a test");
-  const db = mongoose.connect("mongodb://localhost/itemsAPI-prod");
+  const db = mongoose.connect("mongodb://localhost/itemsAPI");
 }
 
 //const itemsRouter = express.Router();
