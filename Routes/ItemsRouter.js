@@ -1,33 +1,17 @@
 const express = require("express");
+const itemsController = require('../controllers/itemsController');
 
 function routes(Items) {
   const itemsRouter = express.Router();
+  const controller = itemsController(Items);
   // Get items from mongo DB
-  itemsRouter
-    .route("/items")
+  itemsRouter.route("/items")
 
     //post items to API and save in DB
-    .post((req, res) => {
-      const items = new Items(req.body);
-
-      items.save();
-      return res.status(201).json(items);
-    })
+    .post(controller.post)
 
     // Get items from mongo DB
-    .get((req, res) => {
-      //filter search items using the items name in the urls
-      const query = {};
-      if (req.query.itemName) {
-        query.itemName = req.query.itemName;
-      }
-      Items.find(query, (err, items) => {
-        if (err) {
-          return res.send(err);
-        }
-        return res.json(items);
-      });
-    });
+    .get(controller.get);
 
   // Get items from mongo DB
   // Middleware so so you don't have to repeat the findById function
