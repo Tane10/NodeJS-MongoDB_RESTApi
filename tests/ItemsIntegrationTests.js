@@ -30,8 +30,15 @@ describe("Items CRUD test", () => {
       });
   });
 
+  // delete everything from DB  
   afterEach(done => {
     Item.deleteMany({}).exec();
     done();
   });
+
+  // Auto close tests after this is run
+  after((done) => {
+      mongoose.connection.close();
+      app.server.close(done());
+  })
 });
