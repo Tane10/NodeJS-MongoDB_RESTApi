@@ -23,8 +23,6 @@ describe("Items CRUD test", () => {
       .send(itemsPost)
       .expect(200)
       .end((err, results) => {
-        console.log(results);
-        //results.body.should.not.have.property("_id");
         results.body.should.have.property("_id");
         done();
       });
