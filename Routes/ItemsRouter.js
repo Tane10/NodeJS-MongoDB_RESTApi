@@ -1,10 +1,7 @@
 const express = require("express");
 const itemsController = require('../controllers/itemsController');
 
-//TODO: Add a filter by item Quailty
 //TODO: Add HATEOAS to all routes to make it eaiser for my self
-
-
 
 function routes(Items) {
   const itemsRouter = express.Router();
@@ -17,6 +14,7 @@ function routes(Items) {
 
     // Get items from mongo DB
     .get(controller.get);
+    
 
     // Get items from mongo DB
   // Middleware so so you don't have to repeat the findById function
