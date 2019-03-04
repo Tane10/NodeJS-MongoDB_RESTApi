@@ -26,15 +26,50 @@ function itemsController(Items) {
       const returnItems = items.map((items) => {
         const newItems = items.toJSON();
         newItems.links = {};
+
+        //Search using items id 
         newItems.links.self = `http://${req.headers.host}/api/items/${
           items._id
         }`;
+
+        //search using items name
+        if(items.itemName.includes(' '))
+        {
+          const formatedItemName = items.itemName.split(' ').join('%20');
+          
+          newItems.links.itemName = `http://${req.headers.host}/api/items?=${
+          formatedItemName
+        }`;
         return newItems;
+        }
+        
       });
       return res.json(returnItems);
     });
   }
-  return { post, get };
+
+  function getFilteredItemName(req,res){
+    const filteredItemQuery = {};
+    if (req.filteredItemQuery.itemName) {
+      filteredItemQuery.itemName = req.filteredItemQuery.itemName
+    }
+    Items.find(filteredItemQuery,(err, items) =>{
+      if (err) {
+        return res.send(err)
+      }
+
+      //HATEOS self documentation filter by item name
+      const returnFilteredItems = items.map((items) =>{
+        const newItems = items.toJSON();
+        newItems.links = {};
+        newItems.links.self = `http://${req.headers.host}/api/items/${items.itemName}`;
+        return newItems;
+    });
+    return res.json(returnFilteredItems);
+  });
+  }
+  return { post, get, getFilteredItemName };
+
 }
 
 module.exports = itemsController;
