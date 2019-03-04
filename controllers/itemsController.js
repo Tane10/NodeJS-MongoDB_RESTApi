@@ -23,6 +23,7 @@ function itemsController(Items) {
       const qualityUpper = req.query.quality.toUpperCase();
 
       query.quality = qualityUpper;
+
     }
 
     Items.find(query, (err, items) => {

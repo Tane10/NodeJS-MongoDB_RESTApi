@@ -3,6 +3,7 @@ const itemsController = require('../controllers/itemsController');
 
 //TODO: Add HATEOAS to all routes to make it eaiser for my self
 
+
 function routes(Items) {
   const itemsRouter = express.Router();
   const controller = itemsController(Items);
