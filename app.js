@@ -14,7 +14,7 @@ if (process.env.ENV == "Tests") {
 }
 
 //const itemsRouter = express.Router();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const Items = require("./models/itemModel");
 
 const itemsRouter = require("./Routes/ItemsRouter")(Items);
